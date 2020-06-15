@@ -251,3 +251,111 @@ int main (void){
 	return 0;
 }
 ```
+
+   
+***
+# 4. 숨바꼭질 3 
+* 수빈이의 위치 : N
+* 동생의 위치 : K  
+* 동생을 찾는 가장 빠른 **시간을 구하는 문제** (시간)    
+___
+* 수빈이가 할 수 있는 행동(K)   
+1. 걷기 : X+1 또는 X-1로 이동 (1초)      
+2. 순간이동: 2 ``*`` X로 이동 (0초)        
+
+가중치가 다를 경우 다른 종류만큼 큐를 만들어야 한다.     
+       
+```c++
+#include <iostream>
+#include <queue>
+#include <deque>
+using namespace std;
+bool c[1000000];
+int d[1000000];
+int MAX = 1000000;
+int main() {
+    int n, m;
+    cin >> n >> m;
+    c[n] = true;
+    d[n] = 0;
+    queue<int> q;
+    queue<int> next_queue;
+    q.push(n);
+    while (!q.empty()) {
+        int now = q.front();
+        q.pop();
+        if (now*2 < MAX) {
+            if (c[now*2] == false) {
+                q.push(now*2);
+                c[now*2] = true;
+                d[now*2] = d[now]; // 아무 가중치를 주지 않는 방법
+            }
+        }
+        if (now-1 >= 0) {
+            if (c[now-1] == false) {
+                next_queue.push(now-1); // 2번째 큐
+                c[now-1] = true;
+                d[now-1] = d[now] + 1;
+            }
+        }
+        if (now+1 < MAX) {
+            if (c[now+1] == false) {
+                next_queue.push(now+1); // 2번째 큐
+                c[now+1] = true;
+                d[now+1] = d[now] + 1;
+            }
+        }
+        if (q.empty()) {// 첫번째 큐가 비면 
+            q = next_queue; // 2번째 큐를 1번째 큐로 전환
+            next_queue = queue<int>(); // 2번째 큐는 새로 생산
+        }
+    }
+    cout << d[m] << '\n';
+    return 0;
+}
+```
+**덱을 이용한 방법**
+```c++
+#include <iostream>
+#include <queue>
+#include <deque>
+using namespace std;
+bool c[1000000];
+int d[1000000];
+int MAX = 1000000;
+int main() {
+    int n, m;
+    cin >> n >> m;
+    c[n] = true;
+    d[n] = 0;
+    deque<int> q;
+    q.push_back(n);
+    while (!q.empty()) {
+        int now = q.front();
+        q.pop_front();
+        if (now*2 < MAX) {
+            if (c[now*2] == false) {
+                q.push_front(now*2); // 0일 경우 앞에다 넣기 
+                c[now*2] = true;
+                d[now*2] = d[now];
+            }
+        }
+        if (now-1 >= 0) {
+            if (c[now-1] == false) {
+                q.push_back(now-1); // 가중치가 1인 경우 뒤에다 넣기
+                c[now-1] = true;
+                d[now-1] = d[now] + 1;
+            }
+        }
+        if (now+1 < MAX) {
+            if (c[now+1] == false) {
+                q.push_back(now+1); // 가중치가 1인 경우 뒤에다 넣기
+                c[now+1] = true;
+                d[now+1] = d[now] + 1;
+            }
+        }
+    }
+    cout << d[m] << '\n';
+    return 0;
+}
+```
