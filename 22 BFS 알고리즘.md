@@ -180,9 +180,74 @@ int main (void){
 ```
    
 ***
-# 3. BFS
-## 3.1. 소 주제
-### 3.1.1. 내용1
-```
-내용1
+# 3. 이모티콘   
+* 화면에 이모티콘은 1개다   
+* 할 수 있는 연산 
+	* 화면에 있는 이모티콘을 모두 복사해서 클립보드에 저장  
+	* 클립보드에 있는 모든 이모티콘을 화면에 붙여넣기  
+	* 화면에 있는 이모티콘 중 하나를 삭제 
+* S개의 이모티콘을 만드는데 걸리는 시간의 최소값을 구하는 문제  	
+___
+* 복사 : (s , c) -> (s,s)     
+* 붙여넣기 : (s,c) -> (s+c, c)        
+* 삭제 : (s,c) -> (s-1, c)      
+* 2 <= S <= 1000 이기 때문에 BFS 탐색으로 가능하다.        
+
+```c++
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cstring>
+#include <stack>
+#include <queue>
+
+using namespace std;
+const int MAX = 1000;
+int s;
+int dist[MAX+1][MAX+1];
+
+void bfs(){
+    memset(dist,-1,sizeof(dist));
+    queue<pair<int,int>> q;
+    q.push(make_pair(1,0));
+    dist[1][0] = 0;
+	while(!q.empty()){
+		int x = q.front().first;
+		int y = q.front().second;
+		q.pop();
+		
+		if(dist[x][x] == -1){
+			dist[x][x] = dist[x][y] +1;
+			q.push(make_pair(x,x));
+		}
+
+		if(x + y <= s && dist[x+y][y] == -1){
+			dist[x+y][y] = dist[x][y] +1;
+			q.push(make_pair(x+y,y));
+		}
+
+		if(x - 1 >= 0 && dist[x-1][y] == -1){
+			dist[x-1][y] = dist[x][y] +1;
+			q.push(make_pair(x-1,y));
+		}
+	}
+}
+
+int main (void){
+	cin >> s;
+	bfs();
+
+	int ans = -1;
+	for(int i=0; i<= s; i++){
+		if(dist[s][i] != -1){
+			if(ans == -1 || ans > dist[s][i] ){
+				ans = dist[s][i];
+			}
+		}
+	}
+
+	cout << ans << "\n";
+
+	return 0;
+}
 ```
