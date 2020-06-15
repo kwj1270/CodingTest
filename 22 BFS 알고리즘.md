@@ -359,3 +359,59 @@ int main() {
     return 0;
 }
 ```
+   
+***
+# 5. BFS - 알고스팟 (어려운 문제니까 잘 알아보자)          
+* 미로는 N x M 크기이고, 총 1 x 1 크기의 방으로 이루어져 있다.                 
+* 빈 방은 자유롭게 다닐 수 있지만, 벽은 부수지 않으면 이동할 수 없다.              
+* (x,y) 에 있을 때, 이동할 수 있는 방은 (x+1,y),(x-1,y),(x,y+1),(x,y-1)         
+* (1,1)에서 (n,m)으로 이동하려면 벽을 최소 몇 개 부수어야 하는지 구하는 문제   
+
+```c++
+#include <iostream>
+#include <cstdio>
+#include <deque>
+using namespace std;     
+int d[555][555];      
+int a[555][555];     
+int n,m;     
+int dx[] = {0,0,1,-1}; // <- 4방향
+int dy[] = {1,-1,0,0}; // <- 4방향
+int main() {
+    scanf("%d %d",&m,&n); // 가로 세로 크기    
+    for (int i=0; i<n; i++) { // 세로 반복문      
+        for (int j=0; j<m; j++) { // 가로 반복문   
+            scanf("%1d",&a[i][j]); // 여러개 입력받지만 한개씩 처리 <- 기존 배열     
+            d[i][j] = -1; // 거리는 -1로 초기화 <- 거리 배열 
+        }
+    }
+    deque<pair<int,int>> q; // 덱 준비 
+    q.push_back(make_pair(0,0)); // 시작 점 넣기 
+    d[0][0] = 0; // 시작점 거리0  
+    while (!q.empty()) { 
+        int x = q.front().first;
+        int y = q.front().second;
+        q.pop_front(); // 앞에서 값 빼기  
+        for (int k=0; k<4; k++) {  
+            int nx = x+dx[k]; // 다음 이동 
+            int ny = y+dy[k]; // 다음 이동  
+            if (0 <= nx && nx < n && 0 <= ny && ny < m) { // 범위내에 있으면 
+                if (d[nx][ny] == -1) { // 그리고 이동을 하지 않았다면   
+                    if (a[nx][ny] == 0) { // 다음 이동할 곳이 0 이라면 
+                        d[nx][ny] = d[x][y]; // 가중치 0이므로 그냥 그대로 값을 가져온다.
+                        q.push_front(make_pair(nx,ny)); //큐에 넣기 -> 앞에다.  
+                    } else { 
+                        d[nx][ny] = d[x][y]+1; // 다른 값이면 가중치 1 추가 
+                        q.push_back(make_pair(nx,ny)); // 큐에 넣기 <- 뒤에 놓기 
+                    }
+                }
+            }
+        }
+    }
+    printf("%d\n",d[n-1][m-1]); // 0부터 시작했으므로 -1 처리 해준다.  
+    return 0;
+}
+```
+
+
+
