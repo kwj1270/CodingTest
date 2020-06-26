@@ -506,6 +506,56 @@ int main() {
     
 
 ```c++
+#include <iostream>
+#include <queue>
+#include <cstdio>
+#include <tuple>
+using namespace std;
+int a[1000][1000]; // 입력받을 배열 
+int d[1000][1000][2]; // distance 이고 3차원 -> 벽 부수고 안 부수고가 정점이 다르다.   
+int dx[] = {0, 0, 1, -1}; // x 4방향 
+int dy[] = {1, -1, 0, 0}; // y 4방향  
+int main() {
+    int n, m;
+    scanf("%d %d",&n,&m);  
+    for (int i=0; i<n; i++) {  
+        for (int j=0; j<m; j++) {  
+            scanf("%1d",&a[i][j]); // 배열에 한개씩 입력받기  
+        }
+    }
+    queue<tuple<int,int,int>> q; // 튜플이란 자료형은 3개씩 입력받는 것이다.   
+    d[0][0][0] = 1; // distance를 구하는 문제이기에 1을 추가 -> 빈칸이든 벽을 부수든 1씩 증가될 것이다.   
+    q.push(make_tuple(0,0,0)); // 큐에 넣기 BFS 동작 
+    while (!q.empty()) { // 큐가 빈다면   
+        int x, y, z; // 3개의 값 
+        tie(x,y,z) = q.front(); // 3개의 값 빼는 방법 tie() 이거 알아두자   
+		q.pop(); // 큐에서 빼기 
+        for (int k=0; k<4; k++) { // 4방향을 위한 방복문  
+            int nx = x+dx[k];
+            int ny = y+dy[k];
+            if (nx < 0 || nx >= n || ny < 0 || ny >= m) continue; // 범위를 벗어나면 continue 즉, 넘겨라  
+            if (a[nx][ny] == 0 && d[nx][ny][z] == 0) { // 다음 칸이 벽이 아니고 이동하지 않았다면  
+                d[nx][ny][z] = d[x][y][z] + 1; // 현재에서 +1 값 증가시켜서 가라  
+                q.push(make_tuple(nx,ny,z)); // 큐에 넣기  
+            }
+            if (z == 0 && a[nx][ny] == 1 && d[nx][ny][z+1] == 0) { // 만약 벽을 한번도 안부수었다면 그리고 이동하지 않았다면 -> 부수었다면 조건 성립x   
+                d[nx][ny][z+1] = d[x][y][z] + 1; // 벽을 부수었다는 가정하에 값을 증가시켜라 -> 1번밖에 못하니 z에서 +1   
+                q.push(make_tuple(nx,ny,z+1)); // 큐에 넣어라  
+            }
+        }
+    }
+    if (d[n-1][m-1][0] != 0 && d[n-1][m-1][1] != 0) { // 안부수고 간거랑 부수고 간거랑 둘다 끝까지 도착했다면 
+        cout << min(d[n-1][m-1][0], d[n-1][m-1][1]); // 둘중 작은 친구로 
+    } else if (d[n-1][m-1][0] != 0) { // 안부순 친구만 끝까지 도착했다면 
+        cout << d[n-1][m-1][0]; // 안 부순 친구로 
+    } else if (d[n-1][m-1][1] != 0) { // 부순 친구만 끝까지 도착했다면 
+        cout << d[n-1][m-1][1]; // 부순 친구로 
+    } else { // 도착을 못한다면 
+        cout << -1; // -1 출력 
+    }
+    cout << '\n';
+    return 0;
+}
 ```
 
 
