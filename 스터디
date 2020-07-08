@@ -36,3 +36,51 @@ int main(int argc, const char * argv[]) {
 
 
 ```
+
+```c++
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+using namespace std;
+
+int left_arr[2001];
+int right_arr[2001];
+int d[2001][2001];
+
+int n;
+
+int cardGame(int left_index, int right_index){
+    if(left_index >= n || right_index >= n){
+        return 0;
+    }
+    
+    int result = d[left_index][right_index];
+    
+    result = left_arr[left_index] > right_arr[right_index] ?
+    max(result, cardGame(left_index, right_index+1)+right_arr[right_index])
+    : max(cardGame(left_index+1, right_index+1), cardGame(left_index+1, right_index));
+    
+    return result;
+}
+
+int main(void) {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+
+    cin >> n;
+    
+    for(int i=0; i < n; i++){
+        cin >> left_arr[i];
+    }
+    
+    for(int i=0; i < n; i++){
+        cin >> right_arr[i];
+    }
+
+    cout << cardGame(0, 0) << "\n";
+    
+}
+    
+
+```
