@@ -61,3 +61,53 @@ int main() {
 }
 
 ```
+
+# 2. 데스나이트 https://www.acmicpc.net/problem/16948
+
+```c++
+#include <iostream>
+#include <algorithm>
+#include <queue>
+#define next _next
+using namespace std;
+
+int dx[] = {-2, -2, 0, 0, 2, 2}; // r
+int dy[] = {-1, 1, -2, 2, -1, 1}; // c
+int n;
+int sx, sy, ex, ey;
+int main() {
+    cin >> n;
+    int d[n][n];
+    for(int i=0; i < n; i++){
+        for(int j=0; j < n; j++){
+            d[i][j] = -1;
+        }
+    }
+    cin >> sx >> sy >> ex >> ey;
+    
+    queue<pair<int, int>>q;
+    q.push(make_pair(sx, sy));
+    d[sx][sy] = 0;
+    while (!q.empty()) {
+        int now_x = q.front().first;
+        int now_y = q.front().second;
+        q.pop();
+        for(int i=0; i < 6; i++){
+            int nx = now_x + dx[i];
+            int ny = now_y + dy[i];
+            if(nx >= 0 && nx < n && ny >= 0 && ny < n){
+                if(d[nx][ny] == -1 || d[nx][ny] > d[now_x][now_y]+1){
+                    d[nx][ny] = d[now_x][now_y]+1;
+                    q.push(make_pair(nx, ny));
+                }
+            }
+        }
+    }
+    
+    cout << d[ex][ey] << "\n";
+    
+    
+    return 0;
+}
+
+```
