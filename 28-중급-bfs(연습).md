@@ -64,6 +64,11 @@ int main() {
 
 # 2. 데스나이트 https://www.acmicpc.net/problem/16948
 
+* 데스 나이트는 r,c 에서 (r-2,c-1) / (r-2,c+1)/ (r,c-2)/ (r,c+2)/ (r+2,c-1)/ (r+2,c+1) 이동할 수 있다.   
+* 크기가 N x N 인 체스판과 두 칸 (r1,c1) (r2,c2) 가 주어졌을 때 (r1,c1) -> (r2,c2) 이동하는 최소 이동횟수를 구하는 문제
+* 5 <= N <= 200
+* BFS로 해결할 수 있는 문제이다.  
+
 ```c++
 #include <iostream>
 #include <algorithm>
