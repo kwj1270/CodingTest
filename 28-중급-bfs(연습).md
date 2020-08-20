@@ -331,5 +331,41 @@ int main() {
    3. ABC 가 주어졌을 때, 모든 그룹에 들어있는 돌의 개수를 같게 만들 수 있는지 구하는 문제   
    
 ```c++
+#include <iostream>
+#include <queue>
+using namespace std;
+bool check[1501][1501]; // 1500 - x - y == z 이기 때문에 2개만 사용한다.
+int sum; // 총합
+void go(int x, int y) {
+    if (check[x][y]) return; // 이미 온적이 있다면 반환
+    check[x][y] = true; // 없으니 true 표시.
+    int a[3] = {x, y, sum-x-y}; // 값 3개 생성 -> x,y,z
+    for (int i=0; i<3; i++) { // 3번 돌리고
+        for (int j=0; j<3; j++) { // 또 3번 돌려서
+            if (a[i] < a[j]) { // 00 01 02, 10 11 12, 20,21,22
+                int b[3] = {x, y, sum-x-y}; // x,y,z
+                b[i] += a[i]; // i랑 j만 사용해서 값 합치기
+                b[j] -= a[i]; // 값빼기
+                go(b[0], b[1]); // 다음 값 넣어서 재귀.
+            }
+        }
+    }
+}
+int main() {
+    int x, y, z;
+    cin >> x >> y >> z;
+    sum = x + y + z;
+    if (sum % 3 != 0) { // 처음부터 값이 만들어지지 않으면 0 리턴
+        cout << 0 << '\n';
+        return 0;
+    }
+    go(x, y);
+    if (check[sum/3][sum/3]) { // 값이 나눠지면 ok
+        cout << 1 << '\n';
+    } else {
+        cout << 0 << '\n'; // 값이 나눠지지 않으면 false
+    }
+    return 0;
+}
 
 ```
