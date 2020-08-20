@@ -123,7 +123,97 @@ int main() {
 * S : N = ```N-1```
 * L : 한자리씩 왼쪽으로  
 * R : 한자리씩 오른쪽으로
-
+   
+또한  
+* 이 문제는 최소값을 구해야 하는건 맞지만   
+* 어떠한 과정을 거쳐야 하는지를 구해야한다.   
+* 배열을 하나 더 이용해서 어떤 과정을 거쳤는지를 저장해야 한다.   
+* ```how[i] = i```;    
+* 단, 모두 기록하면 안된다. -> 모두 기록하면 공간이 너무 많이 필요해진다.     
+  
 ```c++
+#include <iostream>
+#include <algorithm>
+#include <queue>
+#include <string>
+#include <cstring>
+using namespace std;
+bool check[10001];
+int dist[10001];
+char how[10001];
+int from[10001];
+void print(int n, int m) {
+    if (n == m) return;
+    print(n, from[m]);
+    cout << how[m];
+}
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, m;
+        cin >> n >> m;
+        // 초기화.
+        memset(check,false,sizeof(check));
+        memset(dist,0,sizeof(dist));
+        memset(how,0,sizeof(how));
+        memset(from,0,sizeof(from));
+        
+        check[n] = true; // a의 위치를 true
+        dist[n] = 0; // 거리는 0일 테고
+        from[n] = -1; // -1로 부터 왔다 -> 역추적 종료 시점
+        queue<int> q; // 큐 생성
+        q.push(n); // 큐시작
+        
+        while (!q.empty()) {
+            int now = q.front();
+            q.pop();
+            int next = (now*2) % 10000;
+            if (check[next] == false) {
+                q.push(next);
+                check[next] = true;
+                dist[next] = dist[now]+1;
+                from[next] = now;
+                how[next] = 'D';
+            }
+            next = now-1; // now 가 0이면?
+            if (next == -1) next = 9999; // 아 넥스트를 9999로 바꾸는 구나
+            if (check[next] == false) {
+                q.push(next);
+                check[next] = true;
+                dist[next] = dist[now]+1;
+                from[next] = now;
+                how[next] = 'S';
+            }
+            next = (now%1000)*10 + now/1000;
+            if (check[next] == false) {
+                q.push(next);
+                check[next] = true;
+                dist[next] = dist[now]+1;
+                from[next] = now;
+                how[next] = 'L';
+            }
+            next = (now/10) + (now%10)*1000;
+            if (check[next] == false) {
+                q.push(next);
+                check[next] = true;
+                dist[next] = dist[now]+1;
+                from[next] = now;
+                how[next] = 'R';
+            }
+        }
+        print(n, m);
+        /*
+        string ans = "";
+        while (m != n) {
+            ans += how[m];
+            m = from[m];
+        }
+        reverse(ans.begin(), ans.end());
+         */
+        cout << '\n';
+    }
+    return 0;
+}
 
 ```
