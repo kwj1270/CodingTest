@@ -217,3 +217,107 @@ int main() {
 }
 
 ```
+
+# 4. 연구소 https://www.acmicpc.net/problem/14502
+   
+* N x M 크기의 직사각형 지도가 있고, 1 x 1 크기의 칸으로 이루어져 있다. (3 <= N,M <= 8)   
+* 칸, 빈칸, 벽으로 이루어짐 
+* 일부 빈칸에는 바이러스가 있거, 인접하 빈 칸으로 계속 퍼져나간다.   
+* 벽을 3개 세워서 바이러스가 퍼질 수 없는 곳의 크기를 구하는 문제  
+
+```c++
+#include <iostream>
+#include <algorithm>
+#include <queue>
+#include <string>
+#include <cstring>
+
+using namespace std;
+
+
+int n, m;
+int map[8][8];
+int virus[8][8];
+
+int dx[] = {0, 0, 1, -1};
+int dy[] = {1, -1, 0, 0};
+
+int bfs(){
+    queue<pair<int,int>> q;
+    for(int i=0; i < n; i++){
+        for(int j=0; j < m; j++){
+            virus[i][j] = map[i][j];
+            if(virus[i][j] == 2) q.push(make_pair(i, j));
+        }
+    }
+    
+    while (!q.empty()) {
+        int x = q.front().first;
+        int y = q.front().second;
+        q.pop();
+        for(int i=0; i < 4; i++){
+            int nx = x+dx[i];
+            int ny = y+dy[i];
+            if(nx >= 0 && nx < n && ny >= 0 && ny < m){
+                if(virus[nx][ny] == 0){
+                    virus[nx][ny] = 2;
+                    q.push(make_pair(nx, ny));
+                }
+            }
+        }
+    }
+    int cnt = 0;
+    for(int i=0; i < n;i++){
+        for(int j=0; j < m; j++){
+            if(virus[i][j] == 0) cnt++;
+        }
+    }
+    
+    return cnt;
+}
+
+
+int main() {
+    cin >> n >> m;
+    memset(map, 1, sizeof(map));
+    memset(virus, -1, sizeof(virus));
+    
+    for(int i=0; i < n; i++){
+        for(int j=0; j < m; j++){
+            cin >> map[i][j];
+        }
+    }
+    
+    int ans = 0;
+    for (int x1=0; x1<n; x1++) { // 일차 x
+        for (int y1=0; y1<m; y1++) { // 일차 y
+            if (map[x1][y1] != 0) continue; // 0이 아니라면 넘겨라
+            for (int x2=0; x2<n; x2++) { // 2차 x
+                for (int y2=0; y2<m; y2++) { // 2차 y.
+                    if (map[x2][y2] != 0) continue; // 0이 아니라면 넘겨라.
+                    for (int x3=0; x3<n; x3++) { //3차 x
+                        for (int y3=0; y3<m; y3++) { // 3차 y
+                            if (map[x3][y3] != 0) continue; // 0이 아니라면 넘겨라.
+                            if (x1 == x2 && y1 == y2) continue; // 같으면 넘겨라
+                            if (x1 == x3 && y1 == y3) continue; // 같으면 넘겨라
+                            if (x2 == x3 && y2 == y3) continue; // 같으면 넘겨라
+                            map[x1][y1] = 1;
+                            map[x2][y2] = 1;
+                            map[x3][y3] = 1;
+                            int cur = bfs();
+                            if (ans < cur) ans = cur;
+                            map[x1][y1] = 0;
+                            map[x2][y2] = 0;
+                            map[x3][y3] = 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    cout << ans << "\n";
+    
+    return 0;
+}
+
+```
