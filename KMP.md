@@ -20,6 +20,8 @@ J가 가리키는 값이랑 I가 가리키는 값이 다를때는 **while**문�
 이는 사진에서 설명한 것과 같이 값이 연속되지 않는 경우 0으로 돌아간다.            
 그렇다면 연속된 경우는 어떤것인지 알기위해서 아래와 같은 문자를 사용했다.           
      
+ ### 위와 다른 문자열 사용이므로 주의!
+ 
 ![15](https://user-images.githubusercontent.com/50267433/91639737-a20a7180-ea53-11ea-94cf-4211c0bc4ea6.jpg)      
 ![16](https://user-images.githubusercontent.com/50267433/91639780-e0079580-ea53-11ea-947f-95e6efc909af.jpg)      
       
