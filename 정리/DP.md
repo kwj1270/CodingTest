@@ -78,8 +78,7 @@ int fibonacci(int n){
 }
 ```
 
-## 사용 전략 - 차원 늘리기 (이전 값)
-
+## DP 전략 - 차원 늘리기 (이전 값)
 ```c++
 #include <iostream> 
 using namespace std; 
