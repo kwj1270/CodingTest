@@ -1,1 +1,71 @@
 # DP
+* 큰 문제를 작은 문제로 나눠서 푸는 알고리즘
+* 주로 패턴이 있으며 한단계 한단계 진행되서 올라온다고 보면 된다.   
+* 다이나믹 프로그래밍이 수행되려면 2가지 속성이 만족해야 된다.
+  * Overlapping Subproblem : 겹치는 부분(작은)문제
+  * Optimal Substructure : 최적부분구조
+
+## Overlapping Subproblem : 겹치는 부분 문제
+```c++
+// 피보나치 수열   
+0,1,1,2,3,5,8,13,21,34,55....
+```
+* 큰 문제 : N번째 피보나치 수를 구하는 문제
+* 작은 문제 : N-1 번째 피보나치 수를 구하는 문제, N-2 번째 피보나치 수를 구하는 문제
+문제를 작은 문제로 쪼갬으로 같은 형식의 구조를 취하고 있으니 **큰 문제와 작은 문제를 같은 방법으로 풀 수 있다.**
+
+## Optimal Substructure : 최적 부분 구조
+* 문제의 정답을 작은 문제의 정답을 통해 얻을 수 있다.    
+* 서울에서 대구를 찍고 대전 으로 가는 방법의 갯수 구하기        
+* 서울에서 대구로 가는 경우의 수  * 대구에서 대전으로 가는 경우의 수       
+
+## 다이나믹 프로그래밍의 특징 
+* 다이나믹 프로그래밍에서 각 문제는 한 번만 풀어야 한다.
+* Optimal Substructure를 만족하기 때문에, 같은 문제는 구할 때마다 정답이 같다.
+* 따라서, 정답을 한 번 구했으면, 정답을 어딘가에 메모해놓는다.
+* 이렇게 저장함으로써 중복된 계산을 진행하지 않고 빠르게 값만 활용할 수 있도록 한다.
+* 이런 메모하는 것을 코드의 구현에서는 배열에 저장하는 것으로 할 수 있다.
+* 메모를 한다고 해서 영어로 Memorization이라고 한다.
+
+```c++
+int memo[100];
+int fibonacci(int n){
+  if(n <= 1) {
+    return n;
+  } else {
+    if(memo[n] > 0){ // 메모라이제이션
+      return memo[n];
+    }
+    memo[n] = fibonacci(n-1) + fibonacci(n-2); 
+    return memo[n];
+  }
+}
+```
+
+## TOP_DOWN
+```c++
+int memo[100];
+int fibonacci(int n){
+  if(n <= 1) {
+    return n;
+  } else {
+    if(memo[n] > 0){ // 여기서 0은 아직 값을 넣지 않았다는 뜻
+      return memo[n];
+    }
+    memo[n] = fibonacci(n-1) + fibonacci(n-2); 
+    return memo[n];
+  }
+}
+```
+## BOTTOM_UP
+```c++
+int d[100];
+int fibonacci(int n){
+   d[0] = 0;
+   d[1] = 1;
+   for(int i=2; i <= n; i++){
+      d[i] = d[i-1] + d[i-2];
+   }
+   return d[n];
+}
+```
