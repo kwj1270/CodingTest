@@ -77,3 +77,6 @@ int fibonacci(int n){
    return d[n];
 }
 ```
+
+## 사용 전략 - 차원 늘리기 (이전 값)
+
