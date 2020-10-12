@@ -80,3 +80,38 @@ int fibonacci(int n){
 
 ## 사용 전략 - 차원 늘리기 (이전 값)
 
+```c++
+#include <iostream> 
+using namespace std; 
+
+int d[101][10]; // 이전 계단     
+int mod = 1000000000;
+
+int main(void) { 
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    
+    int n;
+    cin >> n;
+    cin.ignore();
+    
+	for(int i=1;i <=9 ; i++){ d[1][i] = 1;}
+
+	for(int i=2; i <= n ;i++){
+		for(int j=0 ; j <= 9;j++){
+			d[i][j] = 0;
+			if (j-1 >= 0) d[i][j] += d[i-1][j-1];
+			if (j+1 <= 9) d[i][j] += d[i-1][j+1];
+			d[i][j] %= mod;
+		}
+	}
+	long long result = 0;
+	for(int i=0;i<=9;i++) result += d[n][i];
+	result %= mod;
+
+	cout << result << "\n";
+
+    return 0; 
+}
+```
