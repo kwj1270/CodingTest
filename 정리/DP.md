@@ -4,6 +4,8 @@
 * 다이나믹 프로그래밍이 수행되려면 2가지 속성이 만족해야 된다.
   * Overlapping Subproblem : 겹치는 부분(작은)문제
   * Optimal Substructure : 최적부분구조
+* 우선 문제에서 출력하기 원하는 값은 dp 의 값이다.    
+
 
 ## Overlapping Subproblem : 겹치는 부분 문제
 ```c++
@@ -83,7 +85,7 @@ int fibonacci(int n){
 #include <iostream> 
 using namespace std; 
 
-int d[101][10]; // 이전 계단     
+int d[101][10]; // 길이, 현재 계단의 높이     
 int mod = 1000000000;
 
 int main(void) { 
@@ -95,18 +97,18 @@ int main(void) {
     cin >> n;
     cin.ignore();
     
-	for(int i=1;i <=9 ; i++){ d[1][i] = 1;}
+	for(int i=1;i <=9 ; i++){ d[1][i] = 1;} // 길이가 1인 경우는 1가지 경우밖에 없으므로 1로 초기화   
 
 	for(int i=2; i <= n ;i++){
 		for(int j=0 ; j <= 9;j++){
-			d[i][j] = 0;
-			if (j-1 >= 0) d[i][j] += d[i-1][j-1];
-			if (j+1 <= 9) d[i][j] += d[i-1][j+1];
-			d[i][j] %= mod;
+			d[i][j] = 0; // 시작은 우선 0으로 
+			if (j-1 >= 0) d[i][j] += d[i-1][j-1]; // 현재 계단이 1이상이라면 아래에서 올라올 수 있다.   
+			if (j+1 <= 9) d[i][j] += d[i-1][j+1]; // 현재 계단이 8이하라면 위에서 내려올 수 있다.  
+			d[i][j] %= mod;  
 		}
 	}
 	long long result = 0;
-	for(int i=0;i<=9;i++) result += d[n][i];
+	for(int i=0;i<=9;i++) result += d[n][i]; // 1부터 9까지의 모든 경우의 수 추가 
 	result %= mod;
 
 	cout << result << "\n";
@@ -114,4 +116,3 @@ int main(void) {
     return 0; 
 }
 ```
-조금있다가 정리 
