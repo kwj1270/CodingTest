@@ -114,3 +114,4 @@ int main(void) {
     return 0; 
 }
 ```
+조금있다가 정리 
