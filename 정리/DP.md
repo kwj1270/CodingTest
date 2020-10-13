@@ -43,45 +43,15 @@
 	* 후에 다시 기술하겠지만 유사한 문제 - 고층빌딩 : https://www.acmicpc.net/problem/1328	
 * 카드 구매하기 : https://www.acmicpc.net/problem/11502
 	* 정답 : https://www.acmicpc.net/source/23221928
-	* 뮨 
-*
-
-## DP 전략 - 차원 늘리기
-```c++
-#include <iostream> 
-using namespace std; 
-
-int d[101][10]; // 길이, 현재 계단의 높이     
-int mod = 1000000000;
-
-int main(void) { 
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-    
-    int n;
-    cin >> n;
-    cin.ignore();
-    
-	for(int i=1;i <=9 ; i++){ d[1][i] = 1;} // 길이가 1인 경우는 1가지 경우밖에 없으므로 1로 초기화   
-
-	for(int i=2; i <= n ;i++){
-		for(int j=0 ; j <= 9;j++){
-			d[i][j] = 0; // 시작은 우선 0으로 
-			if (j-1 >= 0) d[i][j] += d[i-1][j-1]; // 현재 계단이 1이상이라면 아래에서 올라올 수 있다.   
-			if (j+1 <= 9) d[i][j] += d[i-1][j+1]; // 현재 계단이 8이하라면 위에서 내려올 수 있다.  
-			d[i][j] %= mod;  
-		}
-	}
-	long long result = 0;
-	for(int i=0;i<=9;i++) result += d[n][i]; // 1부터 9까지의 모든 경우의 수 추가 
-	result %= mod;
-
-	cout << result << "\n";
-
-    return 0; 
-}
-```
-## dp 전략 
-
+	* dp 를 이용해서 최대값을 찾는 것이다.   
+	* 123의 변형 형태라 볼 수 있으며 점화식을 세우면 간단하게 값을 얻을 수 있습니다.  
+	* `d[n] = d[n-x] + arr[x]` 형태로 123과 달리 단지 이전 단계만 정해져 있지 않았을 뿐입니다. 
+	* 그렇기에 모든 단계를 계산하기 위해 `for` 구문을 이용해서 순회하면서 최대값을 찾는것입니다.  
+	* **이렇게 이전 단계가 정해져 있지 않으면 주로 for 구문하고 if 구문을 사용하여 해당하는 작은 부분을 큰 부분에 추가시킵니다.**          
+* 카드 구매하기2 : https://www.acmicpc.net/problem/16194
+	* 정답 : https://www.acmicpc.net/source/19355309
+	* dp 를 이용해서 최소값을 찾는 것이다.   
+	* 기존 카드 구매하기와 개념적으로 반대로 풀면 된다.   
+	* 단 기존에 존재하는 값이 0이 아닌 최대값으로 넣어 작은값으로 계산해야 한다.    
+* 123 더하기 
 
