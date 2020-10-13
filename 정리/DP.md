@@ -15,17 +15,17 @@
 * 메모를 한다고 해서 영어로 Memorization이라고 한다.
 
 ## 기본적인 DP 문제들    
-* 2 X N 타일 : https://www.acmicpc.net/problem/11726
+* **2 X N 타일 :** https://www.acmicpc.net/problem/11726
 	* 정답 : https://www.acmicpc.net/source/23220812
 	* 아주 베이직한 점화식 문제
 	* 2x1, 1x2 이므로 한칸전 모든 경우의수 + 두칸전 모든 경우의수 = 답 
 	* 여기서 얻어갈 점은 **도식화하여 생각하는 기초를 얻을 수 있다.**   
-* 2 X N 타일 : https://www.acmicpc.net/problem/11727
+* **2 X N 타일 :** https://www.acmicpc.net/problem/11727
 	* 정답 : https://www.acmicpc.net/source/23220863
 	* 2 X N 타일의 변형문제 
 	* 마찬가지로 **도식화하여 생각하는 기초를 얻을 수 있다.**
 	* 중복개념이 발생할 경우가 있으므로 연산을 추가하는 방식을 사용한다.    
-* 123 더하기 : https://www.acmicpc.net/problem/9095
+* **123 더하기 :** https://www.acmicpc.net/problem/9095
 	* 정답 : https://www.acmicpc.net/source/23220496
 	* 내가 가장 부족한 **점화식 세우는것에 있어 가장 기초적인 문제**   
 	* 우선 정답은 `d[n] = d[n-1] + d[n-2] + d[n-3]` 이다. 
@@ -39,19 +39,19 @@
 		* 4를 구하는 문제에서는 3까지 올 수 있는 모든 경우에 2을 더한것이 `d[4-2]`
 		* 4를 구하는 문제에서는 3까지 올 수 있는 모든 경우에 3을 더한것이 `d[4-3]` 식으로 문제를 푼것이다. 
 	* 후에 다시 기술하겠지만 유사한 문제 - 고층빌딩 : https://www.acmicpc.net/problem/1328	
-* 카드 구매하기 : https://www.acmicpc.net/problem/11502
+* **카드 구매하기 :** https://www.acmicpc.net/problem/11502
 	* 정답 : https://www.acmicpc.net/source/23221928
 	* dp 를 이용해서 최대값을 찾는 것이다.   
 	* 123의 변형 형태라 볼 수 있으며 점화식을 세우면 간단하게 값을 얻을 수 있습니다.  
 	* `d[n] = d[n-x] + arr[x]` 형태로 123과 달리 단지 이전 단계만 정해져 있지 않았을 뿐입니다. 
 	* 그렇기에 모든 단계를 계산하기 위해 `for` 구문을 이용해서 순회하면서 최대값을 찾는것입니다.  
 	* **이렇게 이전 단계가 정해져 있지 않으면 주로 for 구문하고 if 구문을 사용하여 해당하는 작은 부분을 큰 부분에 추가시킵니다.**          
-* 카드 구매하기2 : https://www.acmicpc.net/problem/16194
+* **카드 구매하기2 :** https://www.acmicpc.net/problem/16194
 	* 정답 : https://www.acmicpc.net/source/19355309
 	* dp 를 이용해서 최소값을 찾는 것이다.   
 	* 기존 카드 구매하기와 개념적으로 반대로 풀면 된다.   
 	* 단 기존에 존재하는 값이 0이 아닌 최대값으로 넣어 작은값으로 계산해야 한다.    
-* 123 더하기 5 : https://www.acmicpc.net/problem/15990
+* **123 더하기 5 :** https://www.acmicpc.net/problem/15990
 	* 정답 : https://www.acmicpc.net/submit/15990/23224806
 	* 기존 123 문제의 변형으로 같은 수를 중복으로 사용하면 안되는 문제입니다.    
 		* 예를 들면 1+1 은 안됩니다. , 2+2도 안됩니다. 단, 1+2+1은 가능합니다.    
