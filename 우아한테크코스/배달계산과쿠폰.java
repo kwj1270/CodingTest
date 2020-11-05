@@ -28,6 +28,7 @@ public class Order {
             sum += moneyList.get(i) * ((100-couponList.get(i))*0.01);
         }
         System.out.println(sum);
+        answer = sum;
         return answer;
     }
 }
