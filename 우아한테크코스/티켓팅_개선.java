@@ -3,6 +3,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 
 public class Ticketing {
@@ -56,6 +57,7 @@ class Solution {
         if(!session.isEmpty() && session.getCommand().equals("request")){
             answer_list.add(session.getName());
         }
+        Collections.reverse(answer_list);
         System.out.println(answer_list.toString());
         return answer;
     }
@@ -115,4 +117,3 @@ class Session {
                 '}';
     }
 }
-
