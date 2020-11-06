@@ -1,5 +1,5 @@
 # 우아한테크코스 코딩테스트 분석
-## 1. 정렬을 생각하라
+# 1. 정렬을 생각하라
 
 ### 동전 갯수 세기:  
 > 돈이 주어지면 그 돈을 각 지폐/동전으로 분류하는데 이때 분류된 갯수를 출력
@@ -23,7 +23,7 @@ https://github.com/kwj1270/CodingTest/blob/master/%EC%9A%B0%EC%95%84%ED%95%9C%ED
     
 https://github.com/kwj1270/CodingTest/blob/master/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/%EB%B0%B0%EB%8B%AC%EA%B3%84%EC%82%B0%EA%B3%BC%EC%BF%A0%ED%8F%B0.java
 
-## 2. 공간지능력 판단 -> 그림을 그려라!
+# 2. 공간지능력 판단 -> 그림을 그려라!
 ### 토지분양:
 > 새로운 토지를 분양하려는데 식수지가 있어야 하고, 같은 토지를 다시 분양하면 안된다.(걸치는 것은 가능)
    
@@ -34,7 +34,7 @@ https://github.com/kwj1270/CodingTest/blob/master/%EC%9A%B0%EC%95%84%ED%95%9C%ED
 
 https://github.com/kwj1270/CodingTest/blob/master/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/%ED%86%A0%EC%A7%80%EB%B6%84%EC%96%91.cpp   
       
-## 3. 문자처리 
+# 3. 문자처리 
 ### 청개구리 (아스키/유니코드 활용)
 > a -> z, A -> Z 
 
@@ -54,7 +54,29 @@ https://github.com/kwj1270/CodingTest/blob/master/%EC%9A%B0%EC%95%84%ED%95%9C%ED
 
 https://github.com/kwj1270/CodingTest/blob/master/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/%EC%A4%91%EB%B3%B5%EC%95%94%ED%98%B8%EC%A0%9C%EA%B1%B0.cpp
 
-## 
+# 구현을 해라 (시뮬레이션) -> 예외처리 잘해라 
+### 369게임
+> 단순히 3의 배수가 들어있으면 손뼉치기 
+
+https://github.com/kwj1270/CodingTest/blob/master/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/369%EC%86%90%EB%BC%89%EC%B9%98%EA%B8%B0.cpp
+
+### 티켓팅
+> 문자열 처리하고 세션 구현
+
+* 이전에 저장된 세션에 따라 동작 유무바뀜 
+* split 이용
+
+https://github.com/kwj1270/CodingTest/blob/master/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/%ED%8B%B0%EC%BC%93%ED%8C%85_%EA%B0%9C%EC%84%A0.java
+
+
+### 페이지 숫자대결
+> 문자열 처리, 예외처리 생각 
+
+* 예외처리부터 진행하고 계산 진행 
+* 더하기, 곱한 값중 가장 큰값을 정답값으로 
+
+https://github.com/kwj1270/CodingTest/blob/master/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/%ED%8E%98%EC%9D%B4%EC%A7%80%EC%88%AB%EC%9E%90%EB%8C%80%EA%B2%B0.cpp
+
 
 
 
