@@ -28,13 +28,13 @@ public class ArrayDirectionSum {
 		
 		for(int i=0; i < data.length; i++) {
 			for(int j=0; j < data[i].length; j++) {
-				int sum = data[i][j];
+				int sum = data[i][j];			// 시작값
 				for(int k=0; k < 4; k++) {
 					int nx = i+dx[k];
 					int ny = j+dy[k];
 					if(nx < 0 || nx >= data.length) continue;
 					if(ny < 0 || ny >= data[i].length) continue;
-					sum += data[nx][ny];
+					sum += data[nx][ny]; 		// 누적값
 				} // k
 				System.out.print(sum + "\t");
 			} 
