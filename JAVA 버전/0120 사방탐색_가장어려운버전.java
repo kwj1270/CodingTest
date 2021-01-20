@@ -81,3 +81,23 @@ public class MakeBuilding {
 	}
 
 }
+/*
+3
+6
+G B G G B B
+G B G G B G 
+B B B B G B
+B G B B B B
+G B B B B G
+G B B B B G
+5
+G B G G B 
+G B G G B  
+B B B B G 
+B G B B B 
+G B B B B 
+3
+G G B
+G B B
+B B B
+*/
